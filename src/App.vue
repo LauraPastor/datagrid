@@ -1,26 +1,45 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <v-app>
+
+    <SideBar @selectOption="onSelectOption" />
+    <v-main>
+      <v-card class="pa-md-4 mx-lg-auto" width="500px">
+        <UploadInput />
+        <GridData />
+      </v-card>
+      <v-card class="my-5 px-5">
+        <ImageGallery :isWithColor="isWithColor" />
+      </v-card>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { ref } from 'vue'
+import SideBar from './components/SideBar.vue'
+import UploadInput from './components/UploadInput.vue'
+import GridData from './components/GridData.vue'
+import ImageGallery from './components/ImageGallery.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    SideBar,
+    UploadInput,
+    GridData,
+    ImageGallery
+  },
+  setup() {
+    const isWithColor = ref(true);
+
+    const onSelectOption = (isColor) => {
+      isWithColor.value = isColor;
+    };
+
+    return {
+      isWithColor,
+      onSelectOption
+    };
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
